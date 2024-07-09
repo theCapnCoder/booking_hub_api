@@ -1,0 +1,10 @@
+.formFooter {
+  .link {
+    color: var(--color-blue-200);
+    transition: 0.1s color ease;
+  }
+
+  .link:hover {
+    color: var(--color-blue-300);
+  }
+}

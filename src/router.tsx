@@ -1,10 +1,10 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import Bookings from "./pages/Bookings";
 import MainPage from "./pages/MainPage";
-import SighUp from "./pages/SighUp";
-import SignIn from "./pages/SignIn";
 import TripDetails from "./pages/TripDetails";
 import MainLayout from "./layouts/MainLayout/MainLayout";
+import SignInPage from "./pages/SignInPage/SignInPage";
+import SignUpPage from "./pages/SignUpPage/SignUpPage";
 
 const router = createBrowserRouter([
   {
@@ -17,11 +17,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/sign-up",
-        element: <SighUp />,
+        element: <SignUpPage />,
       },
       {
         path: "sign-in",
-        element: <SignIn />,
+        element: <SignInPage />,
       },
       {
         path: "/trip/:tripId",

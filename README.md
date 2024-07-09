@@ -21,3 +21,23 @@ Application should have the following routes: - **DONE**
 ### Footer (1/2)
 - should be visible on all pages - **DONE**
 - should be at the bottom of a page, even if there is less content - **NO**
+
+### Sign Up page (4/7)
+- has a form that contains the following fields:
+  - Full name - **DONE**
+  - Email - **DONE**
+  - Password — must be between 3 and 20 characters long - **NO**
+- all form fields are required - **NO**
+- on clicking Sign Up button, only if all fields are valid, user is navigated to / - **NO**
+- Sign In button should navigate to /sign-in page - **DONE**
+- you don’t need to save data from this form - **DONE**
+
+### Sign In page
+
+- form contains the following fields
+  - Email **DONE**
+  - Password — between 3 and 20 characters long **NO**
+- all form fields are required **NO**
+- on clicking Sign In button, only if all fields are valid, user is navigated to / **NO**
+- Sign Up button should navigate to /sign-up page **DONE**
+- you don’t need to save data from this form **DONE**
