@@ -1,0 +1,26 @@
+.footer {
+  padding: 30px 20px;
+  color: var(--color-white);
+  text-align: center;
+  background-color: var(--color-blue-400);
+
+  .text {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+  }
+
+  .icon {
+    width: 16px;
+  }
+
+  .link {
+    color: var(--color-blue-200);
+    text-decoration: none;
+    transition: 0.1s color ease;
+  }
+
+  .link:hover {
+    color: var(--color-blue-300);
+  }
+}
