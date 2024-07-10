@@ -59,3 +59,10 @@ Application should have the following routes: - **DONE**
   - trip information — duration and level of difficulty
   - price
   - Discover a trip button that navigates to /trip/:tripId page
+
+### Trip page (1/3)
+
+- contains complete information about a trip — picture, name, duration, level, description and price - **DONE**
+- when you click Book a trip button, a modal window opens - **NO**
+- modal window (markup for it is in trip.html) - **NO**
+
