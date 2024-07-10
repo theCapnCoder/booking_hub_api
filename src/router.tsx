@@ -1,10 +1,10 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import MainLayout from "./layouts/MainLayout/MainLayout";
 import Bookings from "./pages/Bookings";
 import MainPage from "./pages/MainPage";
-import TripDetails from "./pages/TripDetails";
-import MainLayout from "./layouts/MainLayout/MainLayout";
 import SignInPage from "./pages/SignInPage/SignInPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
+import TripDetails from "./pages/TripDetailsPage/TripDetailsPage";
 
 const router = createBrowserRouter([
   {

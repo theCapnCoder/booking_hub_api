@@ -11,7 +11,7 @@ const MainLayout = () => {
         <Link to="/bookings">Bookings</Link>
         <Link to="/sign-in">Sign In</Link>
         <Link to="/sign-up">Sign Up</Link>
-        <Link to="/trip/:tripId">Trip Details</Link>
+        <Link to="/trip/:1">Trip Details</Link>
         <Link to="/404">404</Link>
       </div>
       <Header />
