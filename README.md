@@ -74,3 +74,11 @@ Application should have the following routes: - **DONE**
 - when clicking a close button in the upper right corner, the form closes - **DONE**
 - when clicking Book a trip button, if all fields are valid, the form closes and on /bookings page the appropriate card should appear. You don’t need to save data after page reload, but when going to this page through the header, or when submitting the form, the data should be taken from the state. All additional data required for the interface can be mocked - **NO**
 
+### Bookings page ()
+
+- should contain a list of bookings - **NO**
+  - cards should be sorted by date (from closest to farthest)
+- each booking card should contain: - **NO**
+  - name of the trip
+  - booking information — number of guests, planned date (must be in YYYY-MM-DD format), final price
+  - cancel button in the upper right corner — when clicking it, the card should disappear from the list

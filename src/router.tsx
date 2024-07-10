@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout/MainLayout";
-import Bookings from "./pages/Bookings";
+import BookingsPage from "./pages/BookingsPage/BookingsPage";
 import MainPage from "./pages/MainPage";
 import SignInPage from "./pages/SignInPage/SignInPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/bookings",
-        element: <Bookings />,
+        element: <BookingsPage />,
       },
       {
         path: "*",
