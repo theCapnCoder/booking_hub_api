@@ -41,3 +41,21 @@ Application should have the following routes: - **DONE**
 - on clicking Sign In button, only if all fields are valid, user is navigated to / **NO**
 - Sign Up button should navigate to /sign-up page **DONE**
 - you don’t need to save data from this form **DONE**
+
+### Main page (0/4)
+
+- has a block with filters that contains: - **NO**
+  - search bar (use search method to search by trip title, search must be case insensitive)
+  - select for level
+  - select for duration with values:
+     - from 1 day to 5 (inclusive)
+     - from 6 days to 10 (inclusive)
+     - from 11 days and more
+- when entering a value in the search bar or changing filters, the corresponding cards should be displayed - **NO**
+- all filters should work together and can be applied at the same time (don’t forget to handle filters reset) - **NO**
+- each trip card should contain the following elements: - **NO**
+  - picture
+  - title of the trip
+  - trip information — duration and level of difficulty
+  - price
+  - Discover a trip button that navigates to /trip/:tripId page
