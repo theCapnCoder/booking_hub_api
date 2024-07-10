@@ -9,6 +9,7 @@ interface TripDetailsProps {
   level: string;
   description: string;
   price: number;
+  onBookTripClick: () => void;
 }
 
 const TripDetails: React.FC<TripDetailsProps> = ({
@@ -18,6 +19,7 @@ const TripDetails: React.FC<TripDetailsProps> = ({
   level,
   description,
   price,
+  onBookTripClick,
 }) => {
   return (
     <section className={styles.tripPage}>
@@ -63,7 +65,9 @@ const TripDetails: React.FC<TripDetailsProps> = ({
             </strong>
           </div>
 
-          <ButtonLink className={styles.button}>Book a trip</ButtonLink>
+          <ButtonLink className={styles.button} onClick={onBookTripClick}>
+            Book a trip
+          </ButtonLink>
         </div>
       </div>
     </section>
