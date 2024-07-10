@@ -1,3 +1,5 @@
+import { useState } from "react";
+import Modal from "../../components/Modal/Modal";
 import TripDetails from "../../components/TripDetails/TripDetails";
 
 const data = {
@@ -14,7 +16,31 @@ const data = {
 };
 
 const TripDetailsPage = () => {
-  return <TripDetails {...data} />;
+  const { title, duration, level, price } = data;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const modalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const modalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  return (
+    <>
+      <TripDetails {...data} onBookTripClick={modalOpen} />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={modalClose}
+        title={title}
+        duration={duration}
+        level={level}
+        price={price}
+        onSubmit={() => {}}
+      ></Modal>
+    </>
+  );
 };
 
 export default TripDetailsPage;
