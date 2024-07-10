@@ -3,10 +3,10 @@ import TripsList from "../components/TripsList.tsx/TripsList";
 
 const MainPage = () => {
   return (
-    <main>
+    <section>
       <TripsFilter />
       <TripsList />
-    </main>
+    </section>
   );
 };
 
