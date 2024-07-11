@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { Link, useLocation } from "react-router-dom";
 import briefcaseIcon from "../../assets/svg/briefcase.svg";
 import userIcon from "../../assets/svg/user.svg";
-import ButtonLink from "../ButtonLink/ButtonLink";
+import ButtonLink from "../../components/ButtonLink/ButtonLink";
 
 import styles from "./Header.module.scss";
 
