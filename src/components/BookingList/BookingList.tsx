@@ -18,7 +18,11 @@ interface BookingListProps {
 const BookingList: FC<BookingListProps> = ({ bookings, handleCancel }) => (
   <ul className={styles.list}>
     {bookings.map((booking, index) => (
-      <BookingItem key={index} {...booking} onCancel={() => handleCancel(index)} />
+      <BookingItem
+        key={index}
+        {...booking}
+        onCancel={() => handleCancel(index)}
+      />
     ))}
   </ul>
 );

@@ -10,7 +10,9 @@ const BookingsPage: React.FC = () => {
     { title: "Iceland", guests: 2, date: "2024-10-11", total: 14000 },
   ]);
 
-  const sortedBookings = bookings.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const sortedBookings = bookings.sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
 
   const handleCancel = (index: number) => {
     setBookings(sortedBookings.filter((_, i) => i !== index));

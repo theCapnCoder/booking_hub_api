@@ -1,9 +1,8 @@
-// BookTripModal.tsx
 import { FC, useEffect, useState } from "react";
-import styles from "./Modal.module.scss";
-import TripInfo from "../TripInfo/TripInfo";
+import Button from "../Button/Button";
 import Input from "../Input/Input";
-import ButtonLink from "../ButtonLink/ButtonLink";
+import TripInfo from "../TripInfo/TripInfo";
+import styles from "./Modal.module.scss";
 
 interface BookTripModalProps {
   isOpen: boolean;
@@ -36,7 +35,7 @@ const Modal: FC<BookTripModalProps> = ({
     setGuests(1);
     setDate("");
     setTotal(price);
-    
+
     onClose();
   };
 
@@ -94,14 +93,13 @@ const Modal: FC<BookTripModalProps> = ({
               ${total}
             </output>
           </span>
-          <ButtonLink
+          <Button
             data-test-id="book-trip-popup-submit"
-            href="#"
             onClick={handleSubmit}
             className="button"
           >
             Book a trip
-          </ButtonLink>
+          </Button>
         </form>
       </div>
     </div>

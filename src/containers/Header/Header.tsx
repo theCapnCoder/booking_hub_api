@@ -52,7 +52,7 @@ const Header = () => {
                       <ButtonLink
                         data-test-id="header-profile-nav-sign-out"
                         className={styles.profileNavBtn}
-                        href="/sign-in"
+                        to="/sign-in"
                       >
                         Sign Out
                       </ButtonLink>

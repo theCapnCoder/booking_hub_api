@@ -38,7 +38,7 @@ const TripCard: React.FC<TripCardProps> = ({ trip }) => {
       </div>
       <ButtonLink
         data-test-id="trip-card-link"
-        href={`./trip/${trip.id}`}
+        to={`./trip/${trip.id}`}
         className={styles.button}
       >
         Discover a trip

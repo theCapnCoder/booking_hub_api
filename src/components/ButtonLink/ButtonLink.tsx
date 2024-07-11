@@ -1,22 +1,25 @@
-import React, { AnchorHTMLAttributes } from "react";
+import clsx from "clsx";
+import React from "react";
+import { Link } from "react-router-dom";
 
 import styles from "./ButtonLink.module.scss";
-import clsx from "clsx";
 
-interface ButtonLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+interface ButtonLinkProps {
+  to: string;
   children: React.ReactNode;
   className?: string;
 }
 
 const ButtonLink: React.FC<ButtonLinkProps> = ({
+  to,
   children,
   className,
   ...props
 }) => {
   return (
-    <a {...props} className={clsx(styles.buttonLink, className)}>
+    <Link to={to} className={clsx(styles.buttonLink, className)} {...props}>
       {children}
-    </a>
+    </Link>
   );
 };
 

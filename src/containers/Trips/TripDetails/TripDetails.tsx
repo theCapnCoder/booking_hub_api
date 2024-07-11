@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import tripsData from "../../../assets/data/trips.json";
-import ButtonLink from "../../../components/ButtonLink/ButtonLink";
+import Button from "../../../components/Button/Button";
 import Modal from "../../../components/Modal/Modal";
 
 import { Trip } from "../types";
@@ -71,9 +71,13 @@ const TripDetails: React.FC = () => {
             </strong>
           </div>
 
-          <ButtonLink className={styles.button} onClick={modalOpen}>
+          <Button
+            data-test-id="trip-details-button"
+            className={styles.button}
+            onClick={modalOpen}
+          >
             Book a trip
-          </ButtonLink>
+          </Button>
         </div>
       </div>
 
