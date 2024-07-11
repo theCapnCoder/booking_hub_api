@@ -8,11 +8,7 @@ const MainLayout = () => {
   return (
     <div className={styles.mainLayout}>
       <Header />
-
-      <main className={styles.main}>
-        <Outlet />
-      </main>
-
+      <Outlet />
       <Footer />
     </div>
   );

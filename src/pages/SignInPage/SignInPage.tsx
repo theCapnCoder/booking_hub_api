@@ -5,9 +5,18 @@ import FormLayout from "../../components/FormLayout/FormLayout";
 import Input from "../../components/Input/Input";
 
 const SignInPage: FC = () => {
+  const handleSubmit = (formData: Record<string, string>) => {
+    alert(JSON.stringify(formData, null, 2));
+  };
+
   return (
     <FormLayout>
-      <Form title="Sign In" textButton="Sign In" autoComplete="off">
+      <Form
+        title="Sign In"
+        textButton="Sign In"
+        autoComplete="off"
+        onSubmit={handleSubmit}
+      >
         <Input
           label="Email"
           name="email"

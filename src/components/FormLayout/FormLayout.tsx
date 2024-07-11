@@ -7,7 +7,7 @@ interface FormLayoutProps {
 }
 
 const FormLayout: FC<FormLayoutProps> = ({ children }) => {
-  return <section className={styles.formLayout}>{children}</section>;
+  return <main className={styles.formLayout}>{children}</main>;
 };
 
 export default FormLayout;

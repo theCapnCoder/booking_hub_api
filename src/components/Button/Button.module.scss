@@ -16,4 +16,9 @@
   &:hover {
     background-color: var(--color-blue-300);
   }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
