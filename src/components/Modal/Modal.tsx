@@ -1,31 +1,32 @@
-import { FC, useEffect, useState } from "react";
-import Button from "../Button/Button";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import generateId from "../../helpers/generateId";
+import { Booking, Trip } from "../../types";
+import Form from "../Form/Form";
 import Input from "../Input/Input";
 import TripInfo from "../TripInfo/TripInfo";
+
 import styles from "./Modal.module.scss";
 
 interface BookTripModalProps {
   isOpen: boolean;
+  trip: Trip;
+  addBooking: (booking: Booking) => void;
   onClose: () => void;
-  title: string;
-  duration: number;
-  level: string;
-  price: number;
-  onSubmit: (date: string, guests: number) => void;
 }
 
-const Modal: FC<BookTripModalProps> = ({
+const Modal: React.FC<BookTripModalProps> = ({
   isOpen,
+  trip,
   onClose,
-  title,
-  duration,
-  level,
-  price,
-  onSubmit,
+  addBooking,
 }) => {
+  const { id, title, duration, level, price } = trip;
   const [date, setDate] = useState<string>("");
   const [guests, setGuests] = useState<number>(1);
   const [total, setTotal] = useState<number>(price);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTotal(guests * price);
@@ -35,13 +36,27 @@ const Modal: FC<BookTripModalProps> = ({
     setGuests(1);
     setDate("");
     setTotal(price);
-
     onClose();
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit(date, guests);
+  const handleSubmit = (formData: Record<string, string>) => {
+    const newBooking: Booking = {
+      id: generateId(),
+      userId: "user-id",
+      tripId: id,
+      guests: parseInt(formData.guests),
+      date: formData.date,
+      trip: {
+        title,
+        duration,
+        price,
+      },
+      totalPrice: total,
+      createdAt: new Date().toISOString(),
+    };
+
+    addBooking(newBooking);
+    navigate("/bookings");
   };
 
   if (!isOpen) return null;
@@ -57,13 +72,13 @@ const Modal: FC<BookTripModalProps> = ({
           ×
         </button>
 
-        <form
+        <Form
           className={styles.form}
           autoComplete="off"
+          textButton="Book a trip"
           onSubmit={handleSubmit}
         >
           <TripInfo title={title} duration={duration} level={level} />
-
           <Input
             label="Date"
             dataTestId="book-trip-popup-date"
@@ -93,14 +108,7 @@ const Modal: FC<BookTripModalProps> = ({
               ${total}
             </output>
           </span>
-          <Button
-            data-test-id="book-trip-popup-submit"
-            onClick={handleSubmit}
-            className="button"
-          >
-            Book a trip
-          </Button>
-        </form>
+        </Form>
       </div>
     </div>
   );

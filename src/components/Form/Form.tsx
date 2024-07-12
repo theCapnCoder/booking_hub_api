@@ -1,18 +1,18 @@
-import { FC, FormHTMLAttributes, useRef } from "react";
+import { FormHTMLAttributes, useRef } from "react";
+import Button from "../Button/Button";
 
 import styles from "./Form.module.scss";
-import Button from "../Button/Button";
 
 interface FormProps
   extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
-  title: string;
   textButton: string;
+  title?: string;
   onSubmit?: (formData: Record<string, string>) => void;
 }
 
-const Form: FC<FormProps> = ({
-  title,
+const Form: React.FC<FormProps> = ({
   textButton,
+  title,
   onSubmit,
   children,
   ...props
@@ -30,7 +30,6 @@ const Form: FC<FormProps> = ({
     const formValues: Record<string, string> = {};
 
     formData.forEach((value, key) => {
-      console.log(value, key);
       formValues[key] = value as string;
     });
 
@@ -46,7 +45,7 @@ const Form: FC<FormProps> = ({
       onSubmit={handlerSubmit}
       {...props}
     >
-      <h2 className={styles.title}>{title}</h2>
+      {title && <h1 className={styles.title}>{title}</h1>}
       {children}
       <Button
         data-test-id="auth-submit"

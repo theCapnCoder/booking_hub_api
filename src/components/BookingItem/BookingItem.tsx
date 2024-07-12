@@ -1,21 +1,18 @@
-import { FC } from "react";
+import { Booking } from "../../types";
 
 import styles from "./BookingItem.module.scss";
 
-interface BookingItemProps {
-  title: string;
-  guests: number;
-  date: string;
-  total: number;
-  onCancel: () => void;
-}
+type Props = Booking & {
+  onClose: (id: string) => void;
+};
 
-const BookingItem: FC<BookingItemProps> = ({
-  title,
+const BookingItem: React.FC<Props> = ({
+  id,
+  trip: { title },
   guests,
   date,
-  total,
-  onCancel,
+  totalPrice,
+  onClose,
 }) => (
   <li data-test-id="booking" className={styles.booking}>
     <h3 data-test-id="booking-title" className={styles.title}>
@@ -28,13 +25,13 @@ const BookingItem: FC<BookingItemProps> = ({
       {date}
     </span>
     <span data-test-id="booking-total" className="booking__total">
-      ${total}
+      ${totalPrice}
     </span>
     <button
       data-test-id="booking-cancel"
       className={styles.cancel}
       title="Cancel booking"
-      onClick={onCancel}
+      onClick={() => onClose(id)}
     >
       ×
     </button>

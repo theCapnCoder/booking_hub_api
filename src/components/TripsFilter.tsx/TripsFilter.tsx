@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { FC, useState } from "react";
+import { useState } from "react";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import Select from "../Select/Select";
@@ -15,7 +15,7 @@ interface TripsFilterProps {
   }) => void;
 }
 
-const TripsFilter: FC<TripsFilterProps> = ({ onFilter }) => {
+const TripsFilter: React.FC<TripsFilterProps> = ({ onFilter }) => {
   const initialState = {
     search: "",
     duration: "",

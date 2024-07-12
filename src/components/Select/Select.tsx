@@ -1,4 +1,4 @@
-import { FC, SelectHTMLAttributes } from "react";
+import { SelectHTMLAttributes } from "react";
 
 import styles from "./Select.module.scss";
 
@@ -6,7 +6,7 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   options: { value: string; label: string }[];
 }
 
-const Select: FC<SelectProps> = ({ options, ...props }) => {
+const Select: React.FC<SelectProps> = ({ options, ...props }) => {
   return (
     <label className={styles.select}>
       <span className="visually-hidden">duration</span>

@@ -1,28 +1,17 @@
-import { FC } from "react";
+import { Booking } from "../../types";
 import BookingItem from "../BookingItem/BookingItem";
 
 import styles from "./BookingList.module.scss";
 
-interface Booking {
-  title: string;
-  guests: number;
-  date: string;
-  total: number;
-}
-
 interface BookingListProps {
   bookings: Booking[];
-  handleCancel: (index: number) => void;
+  onClose: (index: string) => void;
 }
 
-const BookingList: FC<BookingListProps> = ({ bookings, handleCancel }) => (
+const BookingList: React.FC<BookingListProps> = ({ bookings, onClose }) => (
   <ul className={styles.list}>
     {bookings.map((booking, index) => (
-      <BookingItem
-        key={index}
-        {...booking}
-        onCancel={() => handleCancel(index)}
-      />
+      <BookingItem key={index} {...booking} onClose={(id) => onClose(id)} />
     ))}
   </ul>
 );

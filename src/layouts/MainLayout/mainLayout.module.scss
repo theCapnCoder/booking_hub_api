@@ -1,8 +1,10 @@
 .mainLayout {
   display: flex;
   flex-direction: column;
-  
-  main {
+  min-width: 320px;
+  min-height: 100vh;
+
+  .main {
     display: flex;
     flex-grow: 1;
     flex-direction: column;

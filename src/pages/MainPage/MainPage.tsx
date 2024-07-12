@@ -2,17 +2,7 @@ import { useState } from "react";
 import tripsData from "../../assets/data/trips.json";
 import TripsFilter from "../../components/TripsFilter.tsx/TripsFilter";
 import TripsList from "../../containers/Trips/TripsList.tsx/TripsList";
-
-type Trip = {
-  id: string;
-  title: string;
-  description: string;
-  level: string;
-  duration: number;
-  price: number;
-  image: string;
-  createdAt: string;
-};
+import { Trip } from "../../types";
 
 const MainPage = () => {
   const [filteredTrips, setFilteredTrips] = useState(tripsData);
