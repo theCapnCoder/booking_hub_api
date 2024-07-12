@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import generateId from "../../helpers/generateId";
 import { Booking, Trip } from "../../types";
+import Button from "../Button/Button";
 import Form from "../Form/Form";
 import Input from "../Input/Input";
 import TripInfo from "../TripInfo/TripInfo";
@@ -75,7 +76,6 @@ const Modal: React.FC<BookTripModalProps> = ({
         <Form
           className={styles.form}
           autoComplete="off"
-          textButton="Book a trip"
           onSubmit={handleSubmit}
         >
           <TripInfo title={title} duration={duration} level={level} />
@@ -108,6 +108,13 @@ const Modal: React.FC<BookTripModalProps> = ({
               ${total}
             </output>
           </span>
+          <Button
+            data-test-id="book-trip-popup-book-button"
+            type="submit"
+            disabled={!date || guests < 1 || guests > 10}
+          >
+            Book a trip
+          </Button>
         </Form>
       </div>
     </div>

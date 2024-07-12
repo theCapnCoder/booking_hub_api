@@ -1,46 +1,57 @@
-export const validateFullName = (value: string): string | null => {
+interface ValidationResult {
+  error: boolean;
+  message: string;
+}
+
+export const validateFullName = (value: string): ValidationResult => {
   if (!value) {
-    return "Full name is required";
+    return { error: true, message: "Full name is required" };
   }
-  return null;
+  return { error: false, message: "" };
 };
 
-export const validateEmail = (value: string): string | null => {
+export const validateEmail = (value: string): ValidationResult => {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!value) {
-    return "Email is required";
+    return { error: true, message: "Email is required" };
   }
   if (!emailPattern.test(value)) {
-    return "Invalid email address";
+    return { error: true, message: "Invalid email address" };
   }
-  return null;
+  return { error: false, message: "" };
 };
 
-export const validatePassword = (value: string): string | null => {
+export const validatePassword = (value: string): ValidationResult => {
   if (!value) {
-    return "Password is required";
+    return { error: true, message: "Password is required" };
   }
   if (value.length < 3 || value.length > 20) {
-    return "Password must be between 3 and 20 characters long";
+    return {
+      error: true,
+      message: "Password must be between 3 and 20 characters long",
+    };
   }
-  return null;
+  return { error: false, message: "" };
 };
 
-export const validateDate = (value: string): string | null => {
+export const validateDate = (value: string): ValidationResult => {
   const today = new Date();
   const selectedDate = new Date(value);
   if (!value) {
-    return "Date is required";
+    return { error: true, message: "Date is required" };
   }
   if (selectedDate < today) {
-    return "Date should be not earlier than tomorrow";
+    return { error: true, message: "Date should be not earlier than tomorrow" };
   }
-  return null;
+  return { error: false, message: "" };
 };
 
-export const validateGuests = (value: number): string | null => {
+export const validateGuests = (value: number): ValidationResult => {
   if (value < 1 || value > 10) {
-    return "Number of guests should be from 1 to 10 inclusive";
+    return {
+      error: true,
+      message: "Number of guests should be from 1 to 10 inclusive",
+    };
   }
-  return null;
+  return { error: false, message: "" };
 };

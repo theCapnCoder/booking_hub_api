@@ -1,5 +1,7 @@
 # Booking HUB
 
+- I have left the console.log statements solely to demonstrate that I am receiving data from the form.
+
 ### Router (1/1)
 
 Application should have the following routes: - **DONE**
@@ -22,23 +24,23 @@ Application should have the following routes: - **DONE**
 - should be visible on all pages - **DONE**
 - should be at the bottom of a page, even if there is less content - **DONE**
 
-### Sign Up page (4/7)
+### Sign Up page (7/7)
 - has a form that contains the following fields:
   - Full name - **DONE**
   - Email - **DONE**
-  - Password — must be between 3 and 20 characters long - **NO**
-- all form fields are required - **NO**
-- on clicking Sign Up button, only if all fields are valid, user is navigated to / - **NO**
+  - Password — must be between 3 and 20 characters long - **DONE**
+- all form fields are required - **DONE**
+- on clicking Sign Up button, only if all fields are valid, user is navigated to / - **DONE**
 - Sign In button should navigate to /sign-in page - **DONE**
 - you don’t need to save data from this form - **DONE**
 
-### Sign In page (3/6)
+### Sign In page (6/6)
 
 - form contains the following fields
   - Email **DONE**
-  - Password — between 3 and 20 characters long **NO**
-- all form fields are required **NO**
-- on clicking Sign In button, only if all fields are valid, user is navigated to / **NO**
+  - Password — between 3 and 20 characters long **DONE**
+- all form fields are required **DONE**
+- on clicking Sign In button, only if all fields are valid, user is navigated to / **DONE**
 - Sign Up button should navigate to /sign-up page **DONE**
 - you don’t need to save data from this form **DONE**
 

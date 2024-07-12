@@ -9,9 +9,13 @@ interface FormFooterProps {
   href: string;
 }
 
-const FormFooter: React.FC<FormFooterProps> = ({ formType, text, textLink, href }) => {
+const FormFooter: React.FC<FormFooterProps> = ({
+  formType,
+  text,
+  textLink,
+  href,
+}) => {
   const dataTestId = `auth-${formType}-in-link`;
-  console.log(href);
 
   return (
     <span className={styles.formFooter}>
