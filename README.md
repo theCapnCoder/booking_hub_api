@@ -1,5 +1,7 @@
 # Booking HUB
 
+# Site [GitHub Pages](https://thecapncoder.github.io/booking_hub/)
+
 - I have left the console.log statements solely to demonstrate that I am receiving data from the form.
 
 ### Router (1/1)
