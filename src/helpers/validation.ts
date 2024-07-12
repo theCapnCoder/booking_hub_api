@@ -50,7 +50,7 @@ export const validateGuests = (value: number): ValidationResult => {
   if (value < 1 || value > 10) {
     return {
       error: true,
-      message: "Number of guests should be from 1 to 10 inclusive",
+      message: "Guests must be between 1 and 10",
     };
   }
   return { error: false, message: "" };

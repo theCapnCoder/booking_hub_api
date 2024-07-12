@@ -7,6 +7,8 @@ import Form from "../Form/Form";
 import Input from "../Input/Input";
 import TripInfo from "../TripInfo/TripInfo";
 
+import { validateDate, validateGuests } from "../../helpers/validation";
+
 import styles from "./Modal.module.scss";
 
 interface BookTripModalProps {
@@ -26,6 +28,12 @@ const Modal: React.FC<BookTripModalProps> = ({
   const [date, setDate] = useState<string>("");
   const [guests, setGuests] = useState<number>(1);
   const [total, setTotal] = useState<number>(price);
+  const [dateError, setDateError] = useState<string>("");
+  const [guestsError, setGuestsError] = useState<string>("");
+  const [touched, setTouched] = useState<{ date: boolean; guests: boolean }>({
+    date: false,
+    guests: false,
+  });
 
   const navigate = useNavigate();
 
@@ -40,13 +48,15 @@ const Modal: React.FC<BookTripModalProps> = ({
     onClose();
   };
 
-  const handleSubmit = (formData: Record<string, string>) => {
+  const handleSubmit = (data: Record<string, string>) => {
+    console.log(data);
+
     const newBooking: Booking = {
       id: generateId(),
       userId: "user-id",
       tripId: id,
-      guests: parseInt(formData.guests),
-      date: formData.date,
+      guests,
+      date,
       trip: {
         title,
         duration,
@@ -59,6 +69,30 @@ const Modal: React.FC<BookTripModalProps> = ({
     addBooking(newBooking);
     navigate("/bookings");
   };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name === "date") {
+      setDate(value);
+    } else if (name === "guests") {
+      setGuests(Number(value));
+    }
+    setTouched((prevTouched) => ({
+      ...prevTouched,
+      [name]: true,
+    }));
+  };
+
+  useEffect(() => {
+    if (touched.date) {
+      const dateValidation = validateDate(date);
+      setDateError(dateValidation.message);
+    }
+    if (touched.guests) {
+      const guestsValidation = validateGuests(guests);
+      setGuestsError(guestsValidation.message);
+    }
+  }, [date, guests, touched]);
 
   if (!isOpen) return null;
 
@@ -85,8 +119,9 @@ const Modal: React.FC<BookTripModalProps> = ({
             name="date"
             type="date"
             value={date}
-            onChange={(e) => setDate(e.target.value)}
+            onChange={handleChange}
             required
+            error={touched.date ? dateError : ""}
           />
           <Input
             label="Number of guests"
@@ -96,8 +131,9 @@ const Modal: React.FC<BookTripModalProps> = ({
             min="1"
             max="10"
             value={guests}
-            onChange={(e) => setGuests(Number(e.target.value))}
+            onChange={handleChange}
             required
+            error={touched.guests ? guestsError : ""}
           />
           <span className={styles.total}>
             Total:

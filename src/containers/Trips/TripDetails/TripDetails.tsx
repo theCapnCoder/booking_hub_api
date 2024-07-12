@@ -3,12 +3,15 @@ import { useParams } from "react-router-dom";
 import tripsData from "../../../assets/data/trips.json";
 import Button from "../../../components/Button/Button";
 import Modal from "../../../components/Modal/Modal";
-
-import { Trip } from "../types";
+import { Booking, Trip } from "../../../types";
 
 import styles from "./TripDetails.module.scss";
 
-const TripDetails: React.FC = () => {
+type Props = {
+  addBooking: (booking: Booking) => void;
+};
+
+const TripDetails: React.FC<Props> = ({ addBooking }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { tripId } = useParams<{ tripId: string }>();
   const trip = tripsData.find((trip: Trip) => trip.id === tripId);
@@ -82,13 +85,10 @@ const TripDetails: React.FC = () => {
       </div>
 
       <Modal
+        trip={trip}
+        addBooking={addBooking}
         isOpen={isModalOpen}
         onClose={modalClose}
-        title={title}
-        duration={duration}
-        level={level}
-        price={price}
-        onSubmit={() => {}}
       ></Modal>
     </section>
   );

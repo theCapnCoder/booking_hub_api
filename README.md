@@ -62,19 +62,19 @@ Application should have the following routes: - **DONE**
   - price
   - Discover a trip button that navigates to /trip/:tripId page
 
-### Trip page (6/10)
+### Trip page (10/10)
 
 - contains complete information about a trip — picture, name, duration, level, description and price - **DONE**
 - when you click Book a trip button, a modal window opens - **DONE**
 - modal window (markup for it is in trip.html) - **DONE**
 - contains a name, duration and level of the trip - **DONE**
 - contains a form with the following fields:
-  - Date — planned date, should be not earlier than tomorrow - **NO**
-  - Number of guests — should be from 1 to 10 inclusive - **NO**
-- all form fields are required - **NO**
+  - Date — planned date, should be not earlier than tomorrow - **DONE**
+  - Number of guests — should be from 1 to 10 inclusive - **DONE**
+- all form fields are required - **DONE**
 - final price is equal to the price multiplied by the number of guests - **DONE**
 - when clicking a close button in the upper right corner, the form closes - **DONE**
-- when clicking Book a trip button, if all fields are valid, the form closes and on /bookings page the appropriate card should appear. You don’t need to save data after page reload, but when going to this page through the header, or when submitting the form, the data should be taken from the state. All additional data required for the interface can be mocked - **NO**
+- when clicking Book a trip button, if all fields are valid, the form closes and on /bookings page the appropriate card should appear. You don’t need to save data after page reload, but when going to this page through the header, or when submitting the form, the data should be taken from the state. All additional data required for the interface can be mocked - **DONE**
 
 ### Bookings page (5/5)
 
