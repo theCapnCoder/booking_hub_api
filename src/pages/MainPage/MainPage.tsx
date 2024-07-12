@@ -17,7 +17,7 @@ const MainPage = () => {
     level: string;
   }) => {
     const filteredTrips = tripsData.filter((trip: Trip) => {
-      const searchRegex = new RegExp(search, "i");
+      const searchRegex = new RegExp(`^${search}`, "i");
       const isSearchMatch = trip.title.search(searchRegex) !== -1;
       const isDurationMatch =
         duration === "" ||
