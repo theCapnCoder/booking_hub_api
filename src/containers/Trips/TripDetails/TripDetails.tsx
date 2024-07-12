@@ -1,26 +1,35 @@
-import ButtonLink from "../ButtonLink/ButtonLink";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import tripsData from "../../../assets/data/trips.json";
+import Button from "../../../components/Button/Button";
+import Modal from "../../../components/Modal/Modal";
+import { Booking, Trip } from "../../../types";
+
 import styles from "./TripDetails.module.scss";
 
-interface TripDetailsProps {
-  id: string;
-  image: string;
-  title: string;
-  duration: number;
-  level: string;
-  description: string;
-  price: number;
-  onBookTripClick: () => void;
-}
+type Props = {
+  addBooking: (booking: Booking) => void;
+};
 
-const TripDetails: React.FC<TripDetailsProps> = ({
-  image,
-  title,
-  duration,
-  level,
-  description,
-  price,
-  onBookTripClick,
-}) => {
+const TripDetails: React.FC<Props> = ({ addBooking }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { tripId } = useParams<{ tripId: string }>();
+  const trip = tripsData.find((trip: Trip) => trip.id === tripId);
+
+  if (!trip) {
+    return <div>Trip not found</div>;
+  }
+
+  const { image, title, duration, level, description, price } = trip;
+
+  const modalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const modalClose = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <section className={styles.tripPage}>
       <div className={styles.trip}>
@@ -65,11 +74,22 @@ const TripDetails: React.FC<TripDetailsProps> = ({
             </strong>
           </div>
 
-          <ButtonLink className={styles.button} onClick={onBookTripClick}>
+          <Button
+            data-test-id="trip-details-button"
+            className={styles.button}
+            onClick={modalOpen}
+          >
             Book a trip
-          </ButtonLink>
+          </Button>
         </div>
       </div>
+
+      <Modal
+        trip={trip}
+        addBooking={addBooking}
+        isOpen={isModalOpen}
+        onClose={modalClose}
+      ></Modal>
     </section>
   );
 };

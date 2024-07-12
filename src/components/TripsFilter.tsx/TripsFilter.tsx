@@ -1,39 +1,81 @@
 import clsx from "clsx";
+import { useState } from "react";
+import Button from "../Button/Button";
 import Input from "../Input/Input";
+import Select from "../Select/Select";
+import { durationOptions, levelOptions } from "./filterOptions";
 
 import styles from "./TripsFilter.module.scss";
 
-const TripsFilter = () => {
+interface TripsFilterProps {
+  onFilter: (filters: {
+    search: string;
+    duration: string;
+    level: string;
+  }) => void;
+}
+
+const TripsFilter: React.FC<TripsFilterProps> = ({ onFilter }) => {
+  const initialState = {
+    search: "",
+    duration: "",
+    level: "",
+  };
+
+  const [filters, setFilters] = useState(initialState);
+
+  const handleFilterChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = event.target;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: value,
+    }));
+    onFilter({
+      ...filters,
+      [name]: value,
+    });
+  };
+
+  const handleClearFilter = () => {
+    setFilters(initialState);
+    onFilter(initialState);
+  };
+
   return (
-    <section className={styles.tripsFilter}>
-      <h2 className="visually-hidden">Trips filter</h2>
-      <form className={styles.form} autoComplete="off">
-        <Input
-          dataTestId="filter-search"
-          name="search"
-          type="search"
-          placeholder="search by title"
-          className={clsx("input", styles.search)}
-        />
-        <label className="select">
-          <span className="visually-hidden">Search by duration</span>
-          <select data-test-id="filter-duration" name="duration">
-            <option value="">duration</option>
-            <option value="0_x_5">&lt; 5 days</option>
-            <option value="5_x_10">&lt; 10 days</option>
-            <option value="10">&ge; 10 days</option>
-          </select>
-        </label>
-        <label className="select">
-          <span className="visually-hidden">Search by level</span>
-          <select data-test-id="filter-level" name="level">
-            <option value="">level</option>
-            <option value="easy">easy</option>
-            <option value="moderate">moderate</option>
-            <option value="difficult">difficult</option>
-          </select>
-        </label>
-      </form>
+    <section>
+      <div className={styles.tripsFilter}>
+        <h2 className="visually-hidden">Trips filter</h2>
+        <form className={styles.form} autoComplete="off">
+          <Input
+            dataTestId="filter-search"
+            name="search"
+            type="search"
+            placeholder="Search by title"
+            className={clsx("input", styles.search)}
+            value={filters.search}
+            onChange={handleFilterChange}
+          />
+          <Select
+            name="duration"
+            options={durationOptions}
+            data-test-id="filter-duration"
+            className="select"
+            value={filters.duration}
+            onChange={handleFilterChange}
+          />
+          <Select
+            name="level"
+            options={levelOptions}
+            data-test-id="filter-level"
+            className="select"
+            value={filters.level}
+            onChange={handleFilterChange}
+          />
+        </form>
+      </div>
+      <Button onClick={handleClearFilter}>Clear filter</Button>
     </section>
   );
 };

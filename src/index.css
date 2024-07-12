@@ -5,6 +5,7 @@
   --color-blue-300: #52b1e0;
   --color-blue-400: #242a3a;
   --color-gray: #e1e1e1;
+  --color-red-400: #ff0000;
   --overlay-color: rgb(0 0 0 / 30%);
   --shadow: -1px 4px 74px -16px rgb(0 0 0 / 15%);
   --font-size-100: 14px;
@@ -45,10 +46,6 @@ html {
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  min-width: 320px;
-  min-height: 100vh;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -59,12 +56,6 @@ body {
   line-height: 1.5;
   text-rendering: optimizespeed;
   background-color: var(--color-white);
-}
-
-main {
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
 }
 
 img {

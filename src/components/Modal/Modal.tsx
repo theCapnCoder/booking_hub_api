@@ -1,32 +1,41 @@
-// BookTripModal.tsx
-import { FC, useEffect, useState } from "react";
-import styles from "./Modal.module.scss";
-import TripInfo from "../TripInfo/TripInfo";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import generateId from "../../helpers/generateId";
+import { Booking, Trip } from "../../types";
+import Button from "../Button/Button";
+import Form from "../Form/Form";
 import Input from "../Input/Input";
-import ButtonLink from "../ButtonLink/ButtonLink";
+import TripInfo from "../TripInfo/TripInfo";
+
+import { validateDate, validateGuests } from "../../helpers/validation";
+
+import styles from "./Modal.module.scss";
 
 interface BookTripModalProps {
   isOpen: boolean;
+  trip: Trip;
+  addBooking: (booking: Booking) => void;
   onClose: () => void;
-  title: string;
-  duration: number;
-  level: string;
-  price: number;
-  onSubmit: (date: string, guests: number) => void;
 }
 
-const Modal: FC<BookTripModalProps> = ({
+const Modal: React.FC<BookTripModalProps> = ({
   isOpen,
+  trip,
   onClose,
-  title,
-  duration,
-  level,
-  price,
-  onSubmit,
+  addBooking,
 }) => {
+  const { id, title, duration, level, price } = trip;
   const [date, setDate] = useState<string>("");
   const [guests, setGuests] = useState<number>(1);
   const [total, setTotal] = useState<number>(price);
+  const [dateError, setDateError] = useState<string>("");
+  const [guestsError, setGuestsError] = useState<string>("");
+  const [touched, setTouched] = useState<{ date: boolean; guests: boolean }>({
+    date: false,
+    guests: false,
+  });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTotal(guests * price);
@@ -36,14 +45,54 @@ const Modal: FC<BookTripModalProps> = ({
     setGuests(1);
     setDate("");
     setTotal(price);
-    
     onClose();
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit(date, guests);
+  const handleSubmit = (data: Record<string, string>) => {
+    console.log(data);
+
+    const newBooking: Booking = {
+      id: generateId(),
+      userId: "user-id",
+      tripId: id,
+      guests,
+      date,
+      trip: {
+        title,
+        duration,
+        price,
+      },
+      totalPrice: total,
+      createdAt: new Date().toISOString(),
+    };
+
+    addBooking(newBooking);
+    navigate("/bookings");
   };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name === "date") {
+      setDate(value);
+    } else if (name === "guests") {
+      setGuests(Number(value));
+    }
+    setTouched((prevTouched) => ({
+      ...prevTouched,
+      [name]: true,
+    }));
+  };
+
+  useEffect(() => {
+    if (touched.date) {
+      const dateValidation = validateDate(date);
+      setDateError(dateValidation.message);
+    }
+    if (touched.guests) {
+      const guestsValidation = validateGuests(guests);
+      setGuestsError(guestsValidation.message);
+    }
+  }, [date, guests, touched]);
 
   if (!isOpen) return null;
 
@@ -58,21 +107,21 @@ const Modal: FC<BookTripModalProps> = ({
           ×
         </button>
 
-        <form
+        <Form
           className={styles.form}
           autoComplete="off"
           onSubmit={handleSubmit}
         >
           <TripInfo title={title} duration={duration} level={level} />
-
           <Input
             label="Date"
             dataTestId="book-trip-popup-date"
             name="date"
             type="date"
             value={date}
-            onChange={(e) => setDate(e.target.value)}
+            onChange={handleChange}
             required
+            error={touched.date ? dateError : ""}
           />
           <Input
             label="Number of guests"
@@ -82,8 +131,9 @@ const Modal: FC<BookTripModalProps> = ({
             min="1"
             max="10"
             value={guests}
-            onChange={(e) => setGuests(Number(e.target.value))}
+            onChange={handleChange}
             required
+            error={touched.guests ? guestsError : ""}
           />
           <span className={styles.total}>
             Total:
@@ -94,15 +144,14 @@ const Modal: FC<BookTripModalProps> = ({
               ${total}
             </output>
           </span>
-          <ButtonLink
-            data-test-id="book-trip-popup-submit"
-            href="#"
-            onClick={handleSubmit}
-            className="button"
+          <Button
+            data-test-id="book-trip-popup-book-button"
+            type="submit"
+            disabled={!date || guests < 1 || guests > 10}
           >
             Book a trip
-          </ButtonLink>
-        </form>
+          </Button>
+        </Form>
       </div>
     </div>
   );

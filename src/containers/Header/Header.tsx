@@ -1,62 +1,63 @@
-import "./Header.css";
-import userIcon from "../../assets/svg/user.svg";
-import briefcaseIcon from "../../assets/svg/briefcase.svg";
+import clsx from "clsx";
 import { Link, useLocation } from "react-router-dom";
+import briefcaseIcon from "../../assets/svg/briefcase.svg";
+import userIcon from "../../assets/svg/user.svg";
+import ButtonLink from "../../components/ButtonLink/ButtonLink";
+
+import styles from "./Header.module.scss";
 
 const Header = () => {
   const location = useLocation();
-  const hideNavigation = location.pathname === "/sign-up" || location.pathname === "/sign-in";
+  const hideNavigation =
+    location.pathname === "/sign-up" || location.pathname === "/sign-in";
 
   return (
-    <header className="header">
-      <div className="header__inner">
-        <Link
-          to="/"
-          data-test-id="header-logo"
-          className="header__logo"
-        >
+    <header className={styles.header}>
+      <div className={styles.inner}>
+        <Link to="/" data-test-id="header-logo" className={styles.logo}>
           Travel App
         </Link>
         {!hideNavigation && (
-          <nav data-test-id="header-nav" className="header__nav">
-            <ul className="nav-header__list">
-              <li className="nav-header__item" title="Bookings">
+          <nav data-test-id="header-nav" className={styles.nav}>
+            <ul className={styles.navList}>
+              <li className={styles.navItem} title="Bookings">
                 <Link
                   to="/bookings"
                   data-test-id="header-bookings-link"
-                  className="nav-header__inner"
+                  className={styles.navInner}
                 >
                   <span className="visually-hidden">Bookings</span>
                   <img src={briefcaseIcon} alt="bookings" />
                 </Link>
               </li>
-              <li className="nav-header__item" title="Profile">
+              <li className={styles.navItem} title="Profile">
                 <div
                   data-test-id="header-profile-nav"
-                  className="nav-header__inner profile-nav"
+                  className={clsx(styles.navInner,  styles.profileNav)}
                   tabIndex={0}
                 >
                   <span className="visually-hidden">Profile</span>
                   <img src={userIcon} alt="profile" />
-                  {/* <ul
+                  <ul
                     data-test-id="header-profile-nav-list"
-                    className="profile-nav__list"
+                    className={styles.profileNavList}
                   >
                     <li
                       data-test-id="header-profile-nav-username"
-                      className="profile-nav__item"
+                      className={styles.profileNavItem}
                     >
                       John Doe
                     </li>
-                    <li className="profile-nav__item">
-                      <button
+                    <li className={styles.profileNavItem}>
+                      <ButtonLink
                         data-test-id="header-profile-nav-sign-out"
-                        className="profile-nav__sign-out button"
+                        className={styles.profileNavBtn}
+                        to="/sign-in"
                       >
                         Sign Out
-                      </button>
+                      </ButtonLink>
                     </li>
-                  </ul> */}
+                  </ul>
                 </div>
               </li>
             </ul>
