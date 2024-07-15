@@ -7,8 +7,12 @@ import Input from "../../components/Input/Input";
 
 import { useNavigate } from "react-router-dom";
 import { validateEmail, validatePassword } from "../../helpers/validation";
+import { useAppDispatch } from "../../redux/hooks";
+import { SignInParams } from "../../redux/reducers/authReducer/types";
+import { signIn } from "../../redux/reducers/authReducer";
 
 const SignInPage: React.FC = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState<{ email: string; password: string }>(
     {
@@ -28,8 +32,13 @@ const SignInPage: React.FC = () => {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const handleSubmit = (data: Record<string, string>) => {
-    console.log(data);
-    navigate;
+    const signInParams: SignInParams = {
+      email: data.email,
+      password: data.password,
+    };
+    dispatch(signIn(signInParams)).then(() => {
+      navigate("/");
+    });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -19,7 +19,6 @@ export const signIn = createAsyncThunk<
     });
 
     const { token } = signIn.data;
-
     Cookies.set(Tokens.Access, token, { path: AuthRoutes.RouteMain });
 
     return signIn.data;

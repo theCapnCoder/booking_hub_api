@@ -1,6 +1,6 @@
 # Booking HUB with real API
 
-### How the app should work 
+### How the app should work (3/9)
 - Upon opening the app, it checks for the presence of a token, which is used to authenticate the user. If the token is present, the app loads the current user’s data and redirects the user to the main page, which displays a list of all available trips. - **YES**
 
 - If the token is missing or an error occurs, the user is redirected to the Sign In page. - **YES**
@@ -11,7 +11,7 @@
 
 - While making get requests, the user should see a loader with data-test-id="loader". You can take styles for it from the repository from the first part, or use your own. - **NO**
 
-- User cannot submit any form until all fields are valid. - **NO**
+- User cannot submit any form until all fields are valid. - **YES**
 
 - If a 401 error occurs, the user should be signed out. You can test this by manually deleting a token. To implement this, use createListenerMiddleware. - **NO**
 
@@ -19,17 +19,17 @@
 
 - if an asynchronous operation fails, the user should be presented with an error notification. You can use any library for this, for example React-Toastify, but you should give the notification a custom class notification (in most libraries, this is possible). Pay attention that this class is present in the element when the notification appears. - **NO**
 
-### Auth (0/4)
+### Auth (3/4)
 - You should implement logic with authenticated user detection and data loading as described above. - **NO**
 
-- For sign in and sign up, if an operation is successful, the token should be saved for future requests and the user is redirected to the main page. - **NO**
+- For sign in and sign up, if an operation is successful, the token should be saved for future requests and the user is redirected to the main page. - **YES**
 
-- Upon clicking the Sign Out button in the header, the user is signed out (the token needs to be removed) and redirected to the sign in page. - **NO**
+- Upon clicking the Sign Out button in the header, the user is signed out (the token needs to be removed) and redirected to the sign in page. - **YES**
 
-- The username displayed in the header should be taken from the authenticated user’s full name. - **NO**
+- The username displayed in the header should be taken from the authenticated user’s full name. - **YES**
 
-### Main page (0/1)
-- Upon navigating to the main page, a list of all trips is loaded and displayed to the user. - **NO**
+### Main page (1/1)
+- Upon navigating to the main page, a list of all trips is loaded and displayed to the user. - **YES**
 
 ### Trip page (0/1)
 - Upon navigating to the trip page, the relevant trip data is loaded and displayed to the user. When the user clicks Book a trip button in the modal and form fields are valid, a request is made to book a trip. If the operation is successful, the user should be presented with a success notification. - **NO**

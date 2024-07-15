@@ -7,9 +7,13 @@ import ButtonLink from "../../components/ButtonLink/ButtonLink";
 import { Tokens } from "../../constants";
 
 import styles from "./Header.module.scss";
+import { useAppSelector } from "../../redux/hooks";
+import { authUserSelector } from "../../redux/selectors/getAuthUser";
 
 const Header = () => {
   const location = useLocation();
+  const user = useAppSelector(authUserSelector);
+
   const hideNavigation =
     location.pathname === "/sign-up" || location.pathname === "/sign-in";
 
@@ -52,7 +56,7 @@ const Header = () => {
                       data-test-id="header-profile-nav-username"
                       className={styles.profileNavItem}
                     >
-                      John Doe
+                      {user?.fullName}
                     </li>
                     <li className={styles.profileNavItem}>
                       <ButtonLink
