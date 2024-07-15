@@ -1,14 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getNameThunk } from "../../tripsReducer/helpers";
-import { SessionAuth } from "../../../../api/concepts";
-import { SignIpParams, SignUpAccessData } from "../types";
 import { AxiosError } from "axios";
 import Cookies from "js-cookie";
+import { SessionAuth } from "../../../../api/concepts";
+import { AuthResponseData } from "../../../../api/concepts/auth/types";
 import { AuthRoutes, Tokens } from "../../../../constants";
+import { getNameThunk } from "../../tripsReducer/helpers";
+import { SignInParams } from "../types";
 
 export const signIn = createAsyncThunk<
-  SignUpAccessData,
-  SignIpParams,
+  AuthResponseData,
+  SignInParams,
   { rejectValue: AxiosError }
 >(getNameThunk("signIn"), async ({ email, password }, { rejectWithValue }) => {
   try {

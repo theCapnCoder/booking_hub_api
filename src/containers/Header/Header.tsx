@@ -1,8 +1,10 @@
 import clsx from "clsx";
+import Cookies from "js-cookie";
 import { Link, useLocation } from "react-router-dom";
 import briefcaseIcon from "../../assets/svg/briefcase.svg";
 import userIcon from "../../assets/svg/user.svg";
 import ButtonLink from "../../components/ButtonLink/ButtonLink";
+import { Tokens } from "../../constants";
 
 import styles from "./Header.module.scss";
 
@@ -10,6 +12,10 @@ const Header = () => {
   const location = useLocation();
   const hideNavigation =
     location.pathname === "/sign-up" || location.pathname === "/sign-in";
+
+  const handleClick = () => {
+    Cookies.remove(Tokens.Access);
+  };
 
   return (
     <header className={styles.header}>
@@ -33,7 +39,7 @@ const Header = () => {
               <li className={styles.navItem} title="Profile">
                 <div
                   data-test-id="header-profile-nav"
-                  className={clsx(styles.navInner,  styles.profileNav)}
+                  className={clsx(styles.navInner, styles.profileNav)}
                   tabIndex={0}
                 >
                   <span className="visually-hidden">Profile</span>
@@ -53,6 +59,7 @@ const Header = () => {
                         data-test-id="header-profile-nav-sign-out"
                         className={styles.profileNavBtn}
                         to="/sign-in"
+                        onClick={handleClick}
                       >
                         Sign Out
                       </ButtonLink>

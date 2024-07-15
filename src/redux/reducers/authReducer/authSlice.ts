@@ -3,10 +3,11 @@ import {
   SliceCaseReducers,
   SliceSelectors,
 } from "@reduxjs/toolkit";
-import { AuthState } from "./types";
-import { REDUCER_KEY_AUTH } from "../../../constants";
-import { signUp } from "./actionCreators/singUp";
 import { AxiosError } from "axios";
+import { REDUCER_KEY_AUTH } from "../../../constants";
+import { getAuthUser } from "./actionCreators/getAuthUser";
+import { signUp } from "./actionCreators/singUp";
+import { AuthState } from "./types";
 
 const initialState: AuthState = {
   user: undefined,
@@ -34,6 +35,17 @@ const AuthSlice = createSlice<
         state.user = payload.user;
       })
       .addCase(signUp.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = (payload as AxiosError).message;
+      })
+      .addCase(getAuthUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAuthUser.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.user = payload;
+      })
+      .addCase(getAuthUser.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = (payload as AxiosError).message;
       });

@@ -1,22 +1,12 @@
 import { User } from "../../../types/User";
 
-export interface SignUpAccessData {
-  user: {
-    id: string;
-    fullName: string;
-    email: string;
-    createdAt: string;
-  };
-  token: string;
-}
-
 export interface SignUpParams {
   fullName: string;
   email: string;
   password: string;
 }
 
-export interface SignIpParams {
+export interface SignInParams {
   email: string;
   password: string;
 }

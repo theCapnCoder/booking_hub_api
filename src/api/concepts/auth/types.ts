@@ -1,9 +1,8 @@
+import { User } from "../../../types/User";
+
 export interface AuthResponseData {
-  user: {
-    id: string;
-    fullName: string;
-    email: string;
-    createdAt: string;
-  };
+  user: User;
   token: string;
 }
+
+export interface AuthUserResponseData extends User {}

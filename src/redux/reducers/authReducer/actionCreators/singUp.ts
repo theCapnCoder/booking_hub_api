@@ -1,13 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import Cookies from "js-cookie";
+import { SessionAuth } from "../../../../api/concepts";
+import { AuthResponseData } from "../../../../api/concepts/auth/types";
 import { AuthRoutes, Tokens } from "../../../../constants";
 import { getNameThunk } from "../helpers";
-import { SignUpAccessData, SignUpParams } from "../types";
-import { SessionAuth } from "../../../../api/concepts";
+import { SignUpParams } from "../types";
 
 export const signUp = createAsyncThunk<
-  SignUpAccessData,
+  AuthResponseData,
   SignUpParams,
   { rejectValue: AxiosError }
 >(
@@ -21,7 +22,6 @@ export const signUp = createAsyncThunk<
       });
 
       const { token } = signUp.data;
-
       Cookies.set(Tokens.Access, token, { path: AuthRoutes.RouteMain });
 
       return signUp.data;
