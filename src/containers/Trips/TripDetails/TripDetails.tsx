@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import tripsData from "../../../assets/data/trips.json";
 import Button from "../../../components/Button/Button";
+import Loader from "../../../components/Loader/Loader";
 import Modal from "../../../components/Modal/Modal";
-import { Booking, Trip } from "../../../types";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { getTripById } from "../../../redux/reducers/tripsReducer/actionCreators/getTripById";
+import { tripsSelector } from "../../../redux/selectors";
+import { Booking } from "../../../types";
 
 import styles from "./TripDetails.module.scss";
 
@@ -12,15 +15,22 @@ type Props = {
 };
 
 const TripDetails: React.FC<Props> = ({ addBooking }) => {
+  const dispatch = useAppDispatch();
+  const { isLoading, currentTrip } = useAppSelector(tripsSelector);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { tripId } = useParams<{ tripId: string }>();
-  const trip = tripsData.find((trip: Trip) => trip.id === tripId);
 
-  if (!trip) {
+  useEffect(() => {
+    if (tripId) {
+      dispatch(getTripById(tripId));
+    }
+  }, [dispatch, tripId]);
+
+  if (!currentTrip) {
     return <div>Trip not found</div>;
   }
 
-  const { image, title, duration, level, description, price } = trip;
+  const { title, duration, level, description, price } = currentTrip;
 
   const modalOpen = () => {
     setIsModalOpen(true);
@@ -30,15 +40,19 @@ const TripDetails: React.FC<Props> = ({ addBooking }) => {
     setIsModalOpen(false);
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <section className={styles.tripPage}>
       <div className={styles.trip}>
-        <img
+        {/* <img
           data-test-id="trip-details-image"
           src={image}
           className={styles.img}
           alt="trip photo"
-        />
+        /> */}
 
         <div className={styles.contentWrapper}>
           <div className={styles.info}>
@@ -85,7 +99,7 @@ const TripDetails: React.FC<Props> = ({ addBooking }) => {
       </div>
 
       <Modal
-        trip={trip}
+        trip={currentTrip}
         addBooking={addBooking}
         isOpen={isModalOpen}
         onClose={modalClose}

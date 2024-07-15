@@ -11,7 +11,7 @@ interface TripCardProps {
 const TripCard: React.FC<TripCardProps> = ({ trip }) => {
   return (
     <li data-test-id="trip-card" className={styles.tripCard}>
-      <img data-test-id="trip-card-image" src={trip.image} alt={trip.title} />
+      {/* <img data-test-id="trip-card-image" src={trip.image} alt={trip.title} /> */}
       <div className={styles.content}>
         <div className={styles.info}>
           <h3 data-test-id="trip-card-title" className={styles.title}>

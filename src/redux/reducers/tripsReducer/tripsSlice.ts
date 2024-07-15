@@ -7,9 +7,11 @@ import { REDUCER_KEY_TRIPS } from "../../../constants";
 import { ITripsState } from "./type";
 import { AxiosError } from "axios";
 import { getAllTrips } from "./actionCreators";
+import { getTripById } from "./actionCreators/getTripById";
 
 const initialState: ITripsState = {
   trips: [],
+  currentTrip: undefined,
   error: "",
   isLoading: true,
 };
@@ -34,6 +36,17 @@ const tripsSlice = createSlice<
         state.trips = payload;
       })
       .addCase(getAllTrips.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = (payload as AxiosError).message;
+      })
+      .addCase(getTripById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getTripById.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.currentTrip = payload;
+      })
+      .addCase(getTripById.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = (payload as AxiosError).message;
       });
