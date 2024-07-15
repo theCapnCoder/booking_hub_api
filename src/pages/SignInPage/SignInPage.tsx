@@ -7,12 +7,15 @@ import Input from "../../components/Input/Input";
 
 import { useNavigate } from "react-router-dom";
 import { validateEmail, validatePassword } from "../../helpers/validation";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { SignInParams } from "../../redux/reducers/authReducer/types";
 import { signIn } from "../../redux/reducers/authReducer";
+import { authSelector } from "../../redux/selectors";
+import Loader from "../../components/Loader/Loader";
 
 const SignInPage: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector(authSelector);
   const navigate = useNavigate();
   const [formData, setFormData] = useState<{ email: string; password: string }>(
     {
@@ -71,6 +74,14 @@ const SignInPage: React.FC = () => {
       touched.email && touched.password && Object.keys(newErrors).length === 0
     );
   }, [formData, touched]);
+
+  if (isLoading) {
+    return (
+      <FormLayout>
+        <Loader />
+      </FormLayout>
+    );
+  }
 
   return (
     <FormLayout>

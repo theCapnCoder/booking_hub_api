@@ -8,6 +8,7 @@ import { REDUCER_KEY_AUTH } from "../../../constants";
 import { getAuthUser } from "./actionCreators/getAuthUser";
 import { signUp } from "./actionCreators/singUp";
 import { AuthState } from "./types";
+import { signIn } from "./actionCreators";
 
 const initialState: AuthState = {
   user: undefined,
@@ -35,6 +36,17 @@ const AuthSlice = createSlice<
         state.user = payload.user;
       })
       .addCase(signUp.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = (payload as AxiosError).message;
+      })
+      .addCase(signIn.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(signIn.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.user = payload.user;
+      })
+      .addCase(signIn.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = (payload as AxiosError).message;
       })
