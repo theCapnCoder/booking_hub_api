@@ -16,3 +16,8 @@ export interface AuthState {
   isLoading: boolean;
   error: string;
 }
+
+export interface RejectValue {
+  message: string;
+  status?: number;
+}

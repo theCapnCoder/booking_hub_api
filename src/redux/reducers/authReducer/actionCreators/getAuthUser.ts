@@ -3,11 +3,12 @@ import { AxiosError } from "axios";
 import { SessionAuth } from "../../../../api/concepts";
 import { AuthUserResponseData } from "../../../../api/concepts/auth/types";
 import { getNameThunk } from "../helpers";
+import { RejectValue } from "../types";
 
 export const getAuthUser = createAsyncThunk<
   AuthUserResponseData,
   void,
-  { rejectValue: AxiosError }
+  { rejectValue: RejectValue }
 >(getNameThunk("getAuthUser"), async (_, { rejectWithValue }) => {
   try {
     const authUser = await SessionAuth.getAuthUser("/auth/authenticated-user");
@@ -15,7 +16,10 @@ export const getAuthUser = createAsyncThunk<
     return authUser.data;
   } catch (error) {
     if (error instanceof AxiosError) {
-      return rejectWithValue(error);
+      return rejectWithValue({
+        message: error.message,
+        status: error.response?.status,
+      });
     }
 
     throw error;

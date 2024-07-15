@@ -4,7 +4,7 @@ import {
   SliceSelectors,
 } from "@reduxjs/toolkit";
 import { REDUCER_KEY_TRIPS } from "../../../constants";
-import { ITripsState } from "./type";
+import { ITripsState } from "./types";
 import { AxiosError } from "axios";
 import { getTrips } from "./actionCreators";
 import { getTripById } from "./actionCreators/getTripById";

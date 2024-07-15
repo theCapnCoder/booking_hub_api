@@ -3,12 +3,12 @@ import { AxiosError } from "axios";
 import { SessionBookings } from "../../../../api/concepts/bookings/session";
 import { Booking } from "../../../../types/Booking";
 import { getNameThunk } from "../helpers";
-import { BookingsParams } from "../types";
+import { BookingsParams, RejectValue } from "../types";
 
 export const createBooking = createAsyncThunk<
   Booking,
   BookingsParams,
-  { rejectValue: AxiosError }
+  { rejectValue: RejectValue }
 >(
   getNameThunk("createBooking"),
   async ({ tripId, guests, date }, { rejectWithValue }) => {
@@ -22,8 +22,12 @@ export const createBooking = createAsyncThunk<
       return response.data;
     } catch (error) {
       if (error instanceof AxiosError) {
-        return rejectWithValue(error);
+        return rejectWithValue({
+          message: error.message,
+          status: error.response?.status,
+        });
       }
+      
       throw error;
     }
   }

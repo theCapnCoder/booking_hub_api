@@ -3,11 +3,12 @@ import { AxiosError } from "axios";
 import { SessionTrips } from "../../../../api/concepts/trips/session";
 import { TripsResponseData } from "../../../../api/concepts/trips/types";
 import { getNameThunk } from "../helpers";
+import { RejectValue } from "../types";
 
 export const getTrips = createAsyncThunk<
   TripsResponseData,
   void,
-  { rejectValue: AxiosError }
+  { rejectValue: RejectValue }
 >(getNameThunk("allTrips"), async (_, { rejectWithValue }) => {
   try {
     const trips = await SessionTrips.getTrips("/trips");
@@ -15,7 +16,10 @@ export const getTrips = createAsyncThunk<
     return trips.data;
   } catch (error) {
     if (error instanceof AxiosError) {
-      return rejectWithValue(error);
+      return rejectWithValue({
+        message: error.message,
+        status: error.response?.status,
+      });
     }
 
     throw error;

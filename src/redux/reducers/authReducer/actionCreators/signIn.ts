@@ -6,11 +6,12 @@ import { AuthResponseData } from "../../../../api/concepts/auth/types";
 import { AuthRoutes, Tokens } from "../../../../constants";
 import { getNameThunk } from "../../tripsReducer/helpers";
 import { SignInParams } from "../types";
+import { RejectValue } from "../types";
 
 export const signIn = createAsyncThunk<
   AuthResponseData,
   SignInParams,
-  { rejectValue: AxiosError }
+  { rejectValue: RejectValue }
 >(getNameThunk("signIn"), async ({ email, password }, { rejectWithValue }) => {
   try {
     const signIn = await SessionAuth.signIn("/auth/sign-in", {
@@ -24,8 +25,12 @@ export const signIn = createAsyncThunk<
     return signIn.data;
   } catch (error) {
     if (error instanceof AxiosError) {
-      return rejectWithValue(error);
+      return rejectWithValue({
+        message: error.message,
+        status: error.response?.status,
+      });
     }
+    
     throw error;
   }
 });

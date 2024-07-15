@@ -5,12 +5,12 @@ import { SessionAuth } from "../../../../api/concepts";
 import { AuthResponseData } from "../../../../api/concepts/auth/types";
 import { AuthRoutes, Tokens } from "../../../../constants";
 import { getNameThunk } from "../helpers";
-import { SignUpParams } from "../types";
+import { SignUpParams, RejectValue } from "../types";
 
 export const signUp = createAsyncThunk<
   AuthResponseData,
   SignUpParams,
-  { rejectValue: AxiosError }
+  { rejectValue: RejectValue }
 >(
   getNameThunk("signUp"),
   async ({ fullName, email, password }, { rejectWithValue }) => {
@@ -27,8 +27,12 @@ export const signUp = createAsyncThunk<
       return signUp.data;
     } catch (error) {
       if (error instanceof AxiosError) {
-        return rejectWithValue(error);
+        return rejectWithValue({
+          message: error.message,
+          status: error.response?.status,
+        });
       }
+      
       throw error;
     }
   }

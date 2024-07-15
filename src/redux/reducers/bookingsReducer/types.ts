@@ -11,3 +11,8 @@ export interface BookingsParams {
   guests: number;
   date: string;
 }
+
+export interface RejectValue {
+  message: string;
+  status?: number;
+}
