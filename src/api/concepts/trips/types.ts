@@ -1,4 +1,4 @@
-import { Trip } from "../../../types";
+import { Trip } from "../../../types/Trip";
 
 export type TripsResponseData = Trip[];
 

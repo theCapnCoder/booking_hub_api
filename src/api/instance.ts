@@ -18,8 +18,9 @@ instance.interceptors.request.use(requestInterceptor);
 const request = {
   get: <T>(url: string, headers?: AxiosHeaders) =>
     instance.get<T>(url, { headers }).then((result) => result),
-  post: <T>(url: string, body?: Keys, config?: AxiosRequestConfig) =>
+  post: <T>(url: string, body?: Keys | string, config?: AxiosRequestConfig) =>
     instance.post<T>(url, body, config).then((result) => result),
+  delete: <T>(url: string) => instance.delete<T>(url).then((result) => result),
 };
 
 export default request;

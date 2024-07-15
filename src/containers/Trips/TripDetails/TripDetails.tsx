@@ -6,9 +6,9 @@ import Modal from "../../../components/Modal/Modal";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { getTripById } from "../../../redux/reducers/tripsReducer/actionCreators/getTripById";
 import { tripsSelector } from "../../../redux/selectors";
-import { Booking } from "../../../types";
 
 import styles from "./TripDetails.module.scss";
+import { Booking } from "../../../types/Booking";
 
 type Props = {
   addBooking: (booking: Booking) => void;
