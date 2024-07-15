@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import generateId from "../../helpers/generateId";
-import { Booking, Trip } from "../../types";
+import { Trip } from "../../types/Trip";
 import Button from "../Button/Button";
 import Form from "../Form/Form";
 import Input from "../Input/Input";
@@ -14,17 +12,17 @@ import styles from "./Modal.module.scss";
 interface BookTripModalProps {
   isOpen: boolean;
   trip: Trip;
-  addBooking: (booking: Booking) => void;
+  handleSubmit: (data: Record<string, string>) => void;
   onClose: () => void;
 }
 
 const Modal: React.FC<BookTripModalProps> = ({
   isOpen,
   trip,
+  handleSubmit,
   onClose,
-  addBooking,
 }) => {
-  const { id, title, duration, level, price } = trip;
+  const { title, duration, level, price } = trip;
   const [date, setDate] = useState<string>("");
   const [guests, setGuests] = useState<number>(1);
   const [total, setTotal] = useState<number>(price);
@@ -35,8 +33,6 @@ const Modal: React.FC<BookTripModalProps> = ({
     guests: false,
   });
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     setTotal(guests * price);
   }, [guests, price]);
@@ -46,28 +42,6 @@ const Modal: React.FC<BookTripModalProps> = ({
     setDate("");
     setTotal(price);
     onClose();
-  };
-
-  const handleSubmit = (data: Record<string, string>) => {
-    console.log(data);
-
-    const newBooking: Booking = {
-      id: generateId(),
-      userId: "user-id",
-      tripId: id,
-      guests,
-      date,
-      trip: {
-        title,
-        duration,
-        price,
-      },
-      totalPrice: total,
-      createdAt: new Date().toISOString(),
-    };
-
-    addBooking(newBooking);
-    navigate("/bookings");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,1 +1,1 @@
-export { getAllTrips } from "./getAllTrips";
+export { getTrips } from "./getTrips";

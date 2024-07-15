@@ -10,7 +10,7 @@ export const getBookings = createAsyncThunk<
   { rejectValue: AxiosError }
 >(getNameThunk("getBookings"), async (_, { rejectWithValue }) => {
   try {
-    const response = await SessionBookings.getAllBookings("/bookings");
+    const response = await SessionBookings.getBookings("/bookings");
 
     return response.data;
   } catch (error) {

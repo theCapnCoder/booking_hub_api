@@ -4,17 +4,14 @@ import Button from "../../../components/Button/Button";
 import Loader from "../../../components/Loader/Loader";
 import Modal from "../../../components/Modal/Modal";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { createBooking } from "../../../redux/reducers/bookingsReducer";
+import { BookingsParams } from "../../../redux/reducers/bookingsReducer/types";
 import { getTripById } from "../../../redux/reducers/tripsReducer/actionCreators/getTripById";
 import { tripsSelector } from "../../../redux/selectors";
 
 import styles from "./TripDetails.module.scss";
-import { Booking } from "../../../types/Booking";
 
-type Props = {
-  addBooking: (booking: Booking) => void;
-};
-
-const TripDetails: React.FC<Props> = ({ addBooking }) => {
+const TripDetails = () => {
   const dispatch = useAppDispatch();
   const { isLoading, currentTrip } = useAppSelector(tripsSelector);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,6 +28,23 @@ const TripDetails: React.FC<Props> = ({ addBooking }) => {
   }
 
   const { title, duration, level, description, price } = currentTrip;
+
+  const addBooking = (data: Record<string, string>) => {
+    console.log(data);
+    if (!tripId) {
+      //TODO: add notification
+      return;
+    }
+
+    const booking: BookingsParams = {
+      tripId: tripId,
+      guests: parseInt(data.guests, 10),
+      date: data.date,
+    };
+    dispatch(createBooking(booking)).then(() => {
+      setIsModalOpen(false);
+    });
+  };
 
   const modalOpen = () => {
     setIsModalOpen(true);
@@ -100,7 +114,7 @@ const TripDetails: React.FC<Props> = ({ addBooking }) => {
 
       <Modal
         trip={currentTrip}
-        addBooking={addBooking}
+        handleSubmit={addBooking}
         isOpen={isModalOpen}
         onClose={modalClose}
       ></Modal>

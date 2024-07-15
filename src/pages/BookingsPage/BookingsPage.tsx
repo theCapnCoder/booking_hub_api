@@ -1,17 +1,32 @@
+import { useEffect } from "react";
 import BookingList from "../../components/BookingList/BookingList";
-import { Booking } from "../../types";
+import Loader from "../../components/Loader/Loader";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import {
+  deleteBooking,
+  getBookings,
+} from "../../redux/reducers/bookingsReducer";
+import { bookingsSelector } from "../../redux/selectors/getBookings";
 
 import styles from "./BookingsPage.module.scss";
 
-type Props = {
-  bookings: Booking[];
-  onClose: (index: string) => void;
-};
+const BookingsPage = () => {
+  const dispatch = useAppDispatch();
+  const { isLoading, bookings } = useAppSelector(bookingsSelector);
 
-const BookingsPage: React.FC<Props> = ({ bookings, onClose }) => {
+  useEffect(() => {
+    dispatch(getBookings());
+  }, [dispatch]);
+
+  const handleClose = (id: string) => {
+    dispatch(deleteBooking(id));
+  };
+
+  if (isLoading) return <Loader />;
+
   return (
     <section className={styles.bookings}>
-      <BookingList bookings={bookings} onClose={(id) => onClose(id)} />
+      <BookingList bookings={bookings} onClose={(id) => handleClose(id)} />
     </section>
   );
 };

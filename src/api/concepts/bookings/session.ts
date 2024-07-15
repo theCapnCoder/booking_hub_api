@@ -3,11 +3,11 @@ import { Keys } from "../../types";
 import {
   CreateBookingResponse,
   DeleteBookingResponse,
-  GetAllBookingsResponse,
+  GetBookingsResponse,
 } from "./types";
 
 export const SessionBookings = {
-  getAllBookings: (url: string) => request.get<GetAllBookingsResponse>(url),
+  getBookings: (url: string) => request.get<GetBookingsResponse>(url),
   createBooking: (url: string, model: Keys) =>
     request.post<CreateBookingResponse>(url, model),
   deleteBooking: (url: string) => request.delete<DeleteBookingResponse>(url),

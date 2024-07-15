@@ -4,7 +4,7 @@ import styles from "./TripsList.module.scss";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { tripsSelector } from "../../../redux/selectors/getTrips";
 import { useEffect } from "react";
-import { getAllTrips } from "../../../redux/reducers/tripsReducer";
+import { getTrips } from "../../../redux/reducers/tripsReducer";
 import Loader from "../../../components/Loader/Loader";
 
 const TripsList = () => {
@@ -12,7 +12,7 @@ const TripsList = () => {
   const { isLoading, trips } = useAppSelector(tripsSelector);
 
   useEffect(() => {
-    dispatch(getAllTrips());
+    dispatch(getTrips());
   }, [dispatch]);
 
   if (isLoading) return <Loader />;
