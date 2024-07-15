@@ -35,7 +35,7 @@ const MainPage = () => {
   return (
     <section>
       <TripsFilter onFilter={handleFilter} />
-      <TripsList trips={filteredTrips} />
+      <TripsList />
     </section>
   );
 };

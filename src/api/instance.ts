@@ -7,7 +7,7 @@ const baseURL = "https://travel-app-api.up.railway.app/api/v1";
 
 const instance = axios.create({
   baseURL,
-  timeout: 1000,
+  timeout: 5000,
   headers: {
     "Content-Type": CONTENT_TYPE_APPLICATION_JSON,
   },

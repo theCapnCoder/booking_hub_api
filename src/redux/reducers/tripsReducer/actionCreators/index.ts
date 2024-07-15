@@ -1,0 +1,1 @@
+export { getAllTrips } from "./getAllTrips";

@@ -17,7 +17,7 @@ const MainLayout = () => {
 
   useEffect(() => {
     if (token) {
-      dispatch(getAuthUser({ token })).then(() => {
+      dispatch(getAuthUser()).then(() => {
         setIsLoading(false);
         navigate("/");
       });
