@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import Button from "../../../components/Button/Button";
 import Loader from "../../../components/Loader/Loader";
 import Modal from "../../../components/Modal/Modal";
@@ -23,6 +24,10 @@ const TripDetails = () => {
     }
   }, [dispatch, tripId]);
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   if (!currentTrip) {
     return <div>Trip not found</div>;
   }
@@ -30,9 +35,8 @@ const TripDetails = () => {
   const { title, duration, level, description, price } = currentTrip;
 
   const addBooking = (data: Record<string, string>) => {
-    console.log(data);
     if (!tripId) {
-      //TODO: add notification
+      toast("Trip ID is missing.");
       return;
     }
 
@@ -41,8 +45,13 @@ const TripDetails = () => {
       guests: parseInt(data.guests, 10),
       date: data.date,
     };
-    dispatch(createBooking(booking)).then(() => {
+    dispatch(createBooking(booking)).then(({ meta }) => {
       setIsModalOpen(false);
+      if (meta.requestStatus === "fulfilled") {
+        toast("Booking created successfully");
+      } else if (meta.requestStatus === "rejected") {
+        toast.error("Failed to create booking. Please try again.");
+      }
     });
   };
 
@@ -54,12 +63,9 @@ const TripDetails = () => {
     setIsModalOpen(false);
   };
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
   return (
     <section className={styles.tripPage}>
+      <ToastContainer autoClose={2000} />
       <div className={styles.trip}>
         {/* <img
           data-test-id="trip-details-image"

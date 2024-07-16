@@ -19,8 +19,8 @@
 
 - if an asynchronous operation fails, the user should be presented with an error notification. You can use any library for this, for example React-Toastify, but you should give the notification a custom class notification (in most libraries, this is possible). Pay attention that this class is present in the element when the notification appears. - **NO**
 
-### Auth (3/4)
-- You should implement logic with authenticated user detection and data loading as described above. - **NO**
+### Auth (3/3)
+- You should implement logic with authenticated user detection and data loading as described above.
 
 - For sign in and sign up, if an operation is successful, the token should be saved for future requests and the user is redirected to the main page. - **YES**
 
@@ -31,11 +31,16 @@
 ### Main page (1/1)
 - Upon navigating to the main page, a list of all trips is loaded and displayed to the user. - **YES**
 
-### Trip page (0/1)
-- Upon navigating to the trip page, the relevant trip data is loaded and displayed to the user. When the user clicks Book a trip button in the modal and form fields are valid, a request is made to book a trip. If the operation is successful, the user should be presented with a success notification. - **NO**
+### Trip page (0/3)
+- Upon navigating to the trip page, the relevant trip data is loaded and displayed to the user. - **YES**
+- When the user clicks Book a trip button in the modal and form fields are valid, a request is made to book a trip. - **YES**
+- If the operation is successful, the user should be presented with a success notification. - **YES**
 
-### Bookings page (0/1)
-- Upon navigating to the bookings page, all of the current user’s bookings are loaded and displayed. When the user clicks the cancel booking button, a request is made to cancel the booking. The card for the canceled booking is only removed from the page if the cancellation is successful. If the operation is successful, the user should be presented with a success notification. - **NO**
+### Bookings page (4/4)
+- Upon navigating to the bookings page, all of the current user’s bookings are loaded and displayed. **YES**
+- When the user clicks the cancel booking button, a request is made to cancel the booking. **YES**
+- The card for the canceled booking is only removed from the page if the cancellation is successful. **YES** 
+- If the operation is successful, the user should be presented with a success notification. - **YES**
 
 ### Requirements (3/5)
 - use a separate repository for this part - **YES**

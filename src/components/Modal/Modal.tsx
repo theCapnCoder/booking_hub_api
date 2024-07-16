@@ -37,11 +37,15 @@ const Modal: React.FC<BookTripModalProps> = ({
     setTotal(guests * price);
   }, [guests, price]);
 
-  const handleClose = () => {
+  const resetState = () => {
     setGuests(1);
     setDate("");
     setTotal(price);
     onClose();
+  };
+
+  const handleClose = () => {
+    resetState();
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
