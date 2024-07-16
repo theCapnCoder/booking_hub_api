@@ -1,6 +1,6 @@
 # Booking HUB with real API
 
-### How the app should work (6/9)
+### How the app should work (8/9)
 - Upon opening the app, it checks for the presence of a token, which is used to authenticate the user. If the token is present, the app loads the current user’s data and redirects the user to the main page, which displays a list of all available trips. - **YES**
 
 - If the token is missing or an error occurs, the user is redirected to the Sign In page. - **YES**
@@ -13,9 +13,9 @@
 
 - User cannot submit any form until all fields are valid. - **YES**
 
-- If a 401 error occurs, the user should be signed out. You can test this by manually deleting a token. To implement this, use createListenerMiddleware. - **NO**
+- If a 401 error occurs, the user should be signed out. You can test this by manually deleting a token. To implement this, use createListenerMiddleware. - **YES**
 
-- If there is no 401 error upon reloading the app, the user stays on the same page. - **NO**
+- If there is no 401 error upon reloading the app, the user stays on the same page. - **YES**
 
 - if an asynchronous operation fails, the user should be presented with an error notification. You can use any library for this, for example React-Toastify, but you should give the notification a custom class notification (in most libraries, this is possible). Pay attention that this class is present in the element when the notification appears. - **NO**
 

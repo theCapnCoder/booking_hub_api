@@ -5,12 +5,14 @@ import briefcaseIcon from "../../assets/svg/briefcase.svg";
 import userIcon from "../../assets/svg/user.svg";
 import ButtonLink from "../../components/ButtonLink/ButtonLink";
 import { Tokens } from "../../constants";
-
-import styles from "./Header.module.scss";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { resetState } from "../../redux/reducers/authReducer/authSlice";
 import { authUserSelector } from "../../redux/selectors/getAuthUser";
 
+import styles from "./Header.module.scss";
+
 const Header = () => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const user = useAppSelector(authUserSelector);
 
@@ -19,6 +21,7 @@ const Header = () => {
 
   const handleClick = () => {
     Cookies.remove(Tokens.Access);
+    dispatch(resetState());
   };
 
   return (

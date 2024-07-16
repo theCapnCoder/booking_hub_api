@@ -33,7 +33,7 @@ const BookingsPage = () => {
 
   return (
     <section className={styles.bookings}>
-      <ToastContainer autoClose={2000} />
+      <ToastContainer className="notification" autoClose={2000} />
       <BookingList bookings={bookings} onClose={(id) => handleClose(id)} />
     </section>
   );

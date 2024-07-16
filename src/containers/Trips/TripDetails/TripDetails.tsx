@@ -65,7 +65,7 @@ const TripDetails = () => {
 
   return (
     <section className={styles.tripPage}>
-      <ToastContainer autoClose={2000} />
+      <ToastContainer className="notification" autoClose={2000} />
       <div className={styles.trip}>
         {/* <img
           data-test-id="trip-details-image"
