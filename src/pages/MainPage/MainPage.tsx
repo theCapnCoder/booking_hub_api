@@ -1,11 +1,24 @@
-import { useState } from "react";
-import tripsData from "../../assets/data/trips.json";
+import { useEffect, useState } from "react";
+import Loader from "../../components/Loader/Loader";
 import TripsFilter from "../../components/TripsFilter.tsx/TripsFilter";
 import TripsList from "../../containers/Trips/TripsList.tsx/TripsList";
-import { Trip } from "../../types";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { getTrips } from "../../redux/reducers/tripsReducer";
+import { tripsSelector } from "../../redux/selectors";
+import { Trip } from "../../types/Trip";
 
 const MainPage = () => {
-  const [filteredTrips, setFilteredTrips] = useState(tripsData);
+  const dispatch = useAppDispatch();
+  const { isLoading, trips } = useAppSelector(tripsSelector);
+  const [filteredTrips, setFilteredTrips] = useState<Trip[]>(trips);
+
+  useEffect(() => {
+    dispatch(getTrips());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setFilteredTrips(trips);
+  }, [trips]);
 
   const handleFilter = ({
     search,
@@ -16,7 +29,7 @@ const MainPage = () => {
     duration: string;
     level: string;
   }) => {
-    const filteredTrips = tripsData.filter((trip: Trip) => {
+    const filtered = trips.filter((trip: Trip) => {
       const searchRegex = new RegExp(`^${search}`, "i");
       const isSearchMatch = trip.title.search(searchRegex) !== -1;
       const isDurationMatch =
@@ -29,13 +42,15 @@ const MainPage = () => {
       return isSearchMatch && isDurationMatch && isLevelMatch;
     });
 
-    setFilteredTrips(filteredTrips);
+    setFilteredTrips(filtered);
   };
+
+  if (isLoading) return <Loader />;
 
   return (
     <section>
       <TripsFilter onFilter={handleFilter} />
-      <TripsList />
+      <TripsList trips={filteredTrips} />
     </section>
   );
 };

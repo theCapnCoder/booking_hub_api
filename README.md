@@ -42,10 +42,10 @@
 - The card for the canceled booking is only removed from the page if the cancellation is successful. **YES** 
 - If the operation is successful, the user should be presented with a success notification. - **YES**
 
-### Requirements (3/5)
+### Requirements (4/5)
 - use a separate repository for this part - **YES**
-- you have to use a pre-existing API provided below - **NO**
-- you should remove all mock data that were used in the last task - **NO**
+- you have to use a pre-existing API provided below - **YES**
+- you should remove all mock data that were used in the last task - **YES**
 - Redux Toolkit should be used to work with asynchronous operations - **YES**
 - all other logic from the first part, like validation and filters, should remain - **YES**
 
