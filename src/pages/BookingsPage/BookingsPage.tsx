@@ -24,7 +24,7 @@ const BookingsPage = () => {
       if (meta.requestStatus === "fulfilled") {
         toast("Booking deleted successfully");
       } else if (meta.requestStatus === "rejected") {
-        toast.error("Failed to delete booking. Please try again.");
+        toast.error("Failed to delete booking. Please try again.", { className: "notification" });
       }
     });
   };
@@ -33,7 +33,7 @@ const BookingsPage = () => {
 
   return (
     <section className={styles.bookings}>
-      <ToastContainer className="notification" autoClose={2000} />
+      <ToastContainer autoClose={2000} />
       <BookingList bookings={bookings} onClose={(id) => handleClose(id)} />
     </section>
   );

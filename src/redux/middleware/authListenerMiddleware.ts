@@ -24,7 +24,7 @@ listenerMiddleware.startListening({
       Cookies.remove(Tokens.Access);
       dispatch(resetState());
 
-      toast.error("Unauthorized. Please sign in again.");
+      toast.error("Unauthorized. Please sign in again.", { className: "notification" });
       hasShownUnauthorizedToast = true;
     }
 

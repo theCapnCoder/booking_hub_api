@@ -32,7 +32,7 @@ const TripDetails = () => {
     return <div>Trip not found</div>;
   }
 
-  const { title, duration, level, description, price } = currentTrip;
+  const { image, title, duration, level, description, price } = currentTrip;
 
   const addBooking = (data: Record<string, string>) => {
     if (!tripId) {
@@ -50,7 +50,9 @@ const TripDetails = () => {
       if (meta.requestStatus === "fulfilled") {
         toast("Booking created successfully");
       } else if (meta.requestStatus === "rejected") {
-        toast.error("Failed to create booking. Please try again.");
+        toast.error("Failed to create booking. Please try again.", {
+          className: "notification",
+        });
       }
     });
   };
@@ -65,14 +67,14 @@ const TripDetails = () => {
 
   return (
     <section className={styles.tripPage}>
-      <ToastContainer className="notification" autoClose={2000} />
+      <ToastContainer autoClose={2000} />
       <div className={styles.trip}>
-        {/* <img
+        <img
           data-test-id="trip-details-image"
           src={image}
           className={styles.img}
           alt="trip photo"
-        /> */}
+        />
 
         <div className={styles.contentWrapper}>
           <div className={styles.info}>
