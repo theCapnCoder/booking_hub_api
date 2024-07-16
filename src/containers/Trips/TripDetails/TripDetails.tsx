@@ -1,26 +1,61 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import tripsData from "../../../assets/data/trips.json";
+import { toast, ToastContainer } from "react-toastify";
 import Button from "../../../components/Button/Button";
+import Loader from "../../../components/Loader/Loader";
 import Modal from "../../../components/Modal/Modal";
-import { Booking, Trip } from "../../../types";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { createBooking } from "../../../redux/reducers/bookingsReducer";
+import { BookingsParams } from "../../../redux/reducers/bookingsReducer/types";
+import { getTripById } from "../../../redux/reducers/tripsReducer/actionCreators/getTripById";
+import { tripsSelector } from "../../../redux/selectors";
 
 import styles from "./TripDetails.module.scss";
 
-type Props = {
-  addBooking: (booking: Booking) => void;
-};
-
-const TripDetails: React.FC<Props> = ({ addBooking }) => {
+const TripDetails = () => {
+  const dispatch = useAppDispatch();
+  const { isLoading, currentTrip } = useAppSelector(tripsSelector);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { tripId } = useParams<{ tripId: string }>();
-  const trip = tripsData.find((trip: Trip) => trip.id === tripId);
 
-  if (!trip) {
+  useEffect(() => {
+    if (tripId) {
+      dispatch(getTripById(tripId));
+    }
+  }, [dispatch, tripId]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (!currentTrip) {
     return <div>Trip not found</div>;
   }
 
-  const { image, title, duration, level, description, price } = trip;
+  const { image, title, duration, level, description, price } = currentTrip;
+
+  const addBooking = (data: Record<string, string>) => {
+    if (!tripId) {
+      toast("Trip ID is missing.");
+      return;
+    }
+
+    const booking: BookingsParams = {
+      tripId: tripId,
+      guests: parseInt(data.guests, 10),
+      date: data.date,
+    };
+    dispatch(createBooking(booking)).then(({ meta }) => {
+      setIsModalOpen(false);
+      if (meta.requestStatus === "fulfilled") {
+        toast("Booking created successfully");
+      } else if (meta.requestStatus === "rejected") {
+        toast.error("Failed to create booking. Please try again.", {
+          className: "notification",
+        });
+      }
+    });
+  };
 
   const modalOpen = () => {
     setIsModalOpen(true);
@@ -32,6 +67,7 @@ const TripDetails: React.FC<Props> = ({ addBooking }) => {
 
   return (
     <section className={styles.tripPage}>
+      <ToastContainer autoClose={2000} />
       <div className={styles.trip}>
         <img
           data-test-id="trip-details-image"
@@ -85,8 +121,8 @@ const TripDetails: React.FC<Props> = ({ addBooking }) => {
       </div>
 
       <Modal
-        trip={trip}
-        addBooking={addBooking}
+        trip={currentTrip}
+        handleSubmit={addBooking}
         isOpen={isModalOpen}
         onClose={modalClose}
       ></Modal>

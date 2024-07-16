@@ -3,8 +3,8 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import MainLayout from "./layouts/MainLayout/MainLayout";
-import { userRoutes } from "./routes";
+import MainLayout from "../layouts/MainLayout/MainLayout";
+import { userRoutes } from ".";
 
 const App: React.FC = () => {
   const router = createBrowserRouter([

@@ -22,5 +22,5 @@ const rawAuthRoutes = [
 
 export const adminRoutes = rawAuthRoutes.map((route) => ({
   ...route,
-  element: <AuthGuard isAuth={false} component={route.element} />,
+  element: <AuthGuard component={route.element} />,
 }));

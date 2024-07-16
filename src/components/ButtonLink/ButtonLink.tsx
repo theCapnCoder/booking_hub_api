@@ -8,16 +8,23 @@ interface ButtonLinkProps {
   to: string;
   children: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 }
 
 const ButtonLink: React.FC<ButtonLinkProps> = ({
   to,
   children,
   className,
+  onClick,
   ...props
 }) => {
   return (
-    <Link to={to} className={clsx(styles.buttonLink, className)} {...props}>
+    <Link
+      to={to}
+      className={clsx(styles.buttonLink, className)}
+      onClick={onClick}
+      {...props}
+    >
       {children}
     </Link>
   );

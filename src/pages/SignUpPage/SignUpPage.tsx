@@ -10,8 +10,15 @@ import {
   validateFullName,
   validatePassword,
 } from "../../helpers/validation";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { signUp } from "../../redux/reducers/authReducer/actionCreators";
+import { SignUpParams } from "../../redux/reducers/authReducer/types";
+import { authSelector } from "../../redux/selectors";
+import Loader from "../../components/Loader/Loader";
 
 const SignUpPage: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector(authSelector);
   const navigate = useNavigate();
   const [formData, setFormData] = useState<{
     fullName: string;
@@ -52,8 +59,15 @@ const SignUpPage: React.FC = () => {
   };
 
   const handleSubmit = (data: Record<string, string>) => {
-    console.log(data);
-    navigate("/");
+    const signUpParams: SignUpParams = {
+      fullName: data.fullName,
+      email: data.email,
+      password: data.password,
+    };
+
+    dispatch(signUp(signUpParams)).then(() => {
+      navigate("/");
+    });
   };
 
   useEffect(() => {
@@ -82,6 +96,14 @@ const SignUpPage: React.FC = () => {
         Object.keys(newErrors).length === 0
     );
   }, [formData, touched]);
+
+  if (isLoading) {
+    return (
+      <FormLayout>
+        <Loader />
+      </FormLayout>
+    );
+  }
 
   return (
     <FormLayout>

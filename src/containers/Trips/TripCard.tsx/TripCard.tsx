@@ -1,6 +1,5 @@
 import ButtonLink from "../../../components/ButtonLink/ButtonLink";
-
-import { Trip } from "../../../types";
+import { Trip } from "../../../types/Trip";
 
 import styles from "./TripCard.module.scss";
 
