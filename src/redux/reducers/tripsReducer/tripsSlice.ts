@@ -1,8 +1,4 @@
-import {
-  createSlice,
-  SliceCaseReducers,
-  SliceSelectors,
-} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { REDUCER_KEY_TRIPS } from "../../../constants";
 import { ITripsState } from "./types";
 import { AxiosError } from "axios";
@@ -16,12 +12,7 @@ const initialState: ITripsState = {
   isLoading: true,
 };
 
-const tripsSlice = createSlice<
-  ITripsState,
-  SliceCaseReducers<ITripsState>,
-  typeof REDUCER_KEY_TRIPS,
-  SliceSelectors<ITripsState>
->({
+const tripsSlice = createSlice({
   name: REDUCER_KEY_TRIPS,
   initialState,
   reducers: {},

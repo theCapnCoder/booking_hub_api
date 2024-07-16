@@ -1,8 +1,4 @@
-import {
-  createSlice,
-  SliceCaseReducers,
-  SliceSelectors,
-} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import { REDUCER_KEY_AUTH } from "../../../constants";
 import { getAuthUser } from "./actionCreators/getAuthUser";
@@ -16,16 +12,12 @@ const initialState: AuthState = {
   error: "",
 };
 
-const AuthSlice = createSlice<
-  AuthState,
-  SliceCaseReducers<AuthState>,
-  typeof REDUCER_KEY_AUTH,
-  SliceSelectors<AuthState>
->({
+const AuthSlice = createSlice({
   name: REDUCER_KEY_AUTH,
   initialState,
-  reducers: {},
-
+  reducers: {
+    resetState: () => initialState,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(signUp.pending, (state) => {
@@ -64,4 +56,5 @@ const AuthSlice = createSlice<
   },
 });
 
+export const { resetState } = AuthSlice.actions;
 export default AuthSlice.reducer;

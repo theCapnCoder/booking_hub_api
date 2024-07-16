@@ -1,15 +1,15 @@
 # Booking HUB with real API
 
-### How the app should work (3/9)
+### How the app should work (6/9)
 - Upon opening the app, it checks for the presence of a token, which is used to authenticate the user. If the token is present, the app loads the current user’s data and redirects the user to the main page, which displays a list of all available trips. - **YES**
 
 - If the token is missing or an error occurs, the user is redirected to the Sign In page. - **YES**
 
-- The loader is displayed until the user data is successfully loaded or an error occurs. - **NO**
+- The loader is displayed until the user data is successfully loaded or an error occurs. - **YES**
 
-- If an unauthorized user tries to access any page other than the Sign Up and Sign In pages, he will be redirected to the Sign In page. If an authorized user tries to access an unknown route, they will be redirected to the main page. - **NO**
+- If an unauthorized user tries to access any page other than the Sign Up and Sign In pages, he will be redirected to the Sign In page. If an authorized user tries to access an unknown route, they will be redirected to the main page. - **YES**
 
-- While making get requests, the user should see a loader with data-test-id="loader". You can take styles for it from the repository from the first part, or use your own. - **NO**
+- While making get requests, the user should see a loader with data-test-id="loader". You can take styles for it from the repository from the first part, or use your own. - **YES**
 
 - User cannot submit any form until all fields are valid. - **YES**
 
@@ -31,7 +31,7 @@
 ### Main page (1/1)
 - Upon navigating to the main page, a list of all trips is loaded and displayed to the user. - **YES**
 
-### Trip page (0/3)
+### Trip page (3/3)
 - Upon navigating to the trip page, the relevant trip data is loaded and displayed to the user. - **YES**
 - When the user clicks Book a trip button in the modal and form fields are valid, a request is made to book a trip. - **YES**
 - If the operation is successful, the user should be presented with a success notification. - **YES**
@@ -42,7 +42,7 @@
 - The card for the canceled booking is only removed from the page if the cancellation is successful. **YES** 
 - If the operation is successful, the user should be presented with a success notification. - **YES**
 
-### Requirements (4/5)
+### Requirements (5/5)
 - use a separate repository for this part - **YES**
 - you have to use a pre-existing API provided below - **YES**
 - you should remove all mock data that were used in the last task - **YES**

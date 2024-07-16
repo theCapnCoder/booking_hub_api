@@ -1,8 +1,4 @@
-import {
-  createSlice,
-  SliceCaseReducers,
-  SliceSelectors,
-} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import { REDUCER_KEY_BOOKINGS } from "../../../constants";
 import { createBooking, deleteBooking, getBookings } from "./actionCreators";
@@ -14,12 +10,7 @@ const initialState: BookingsState = {
   error: "",
 };
 
-const bookingsSlice = createSlice<
-  typeof initialState,
-  SliceCaseReducers<typeof initialState>,
-  typeof REDUCER_KEY_BOOKINGS,
-  SliceSelectors<typeof initialState>
->({
+const bookingsSlice = createSlice({
   name: REDUCER_KEY_BOOKINGS,
   initialState,
   reducers: {},
